@@ -56,25 +56,27 @@ const getStatus = (userId)=>{
     return getGrades(user.schoolId);
   }).then((grades)=>{
     let average = 0;
-    console.log(grades);
     if(grades.length > 0){
       average = grades.map((grade) => grade.grade).reduce((a,b) => a + b) / grades.length;
     }
     return `${user.name} has a ${average}% in the class.`;
-    console.log(average);
-    // average
-    // return our string
   });
 };
 
 const getStatusAlt = async (userId) =>{
   const user = await getUser(userId);
+  const grades = await getGrades(user.schoolId);
 
-  console.log(user);
+  let average = 0;
+  if(grades.length > 0){
+    average = grades.map((grade) => grade.grade).reduce((a,b) => a + b) / grades.length;
+  }
+  return `${user.name} has a ${average}% in the class.`;
 };
 
-getStatusAlt(2).then((name)=>{
-  console.log(name);
+
+getStatusAlt(1).then((status)=>{
+  console.log(status);
 }).catch((e)=>{
   console.log(e);
 });
